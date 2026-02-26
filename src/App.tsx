@@ -1,4 +1,3 @@
-import React from 'react';
 import Page1_Intro from './pages/Page1_Intro';
 import Page2_Overview from './pages/Page2_Overview';
 import Page3_SavingsMedium from './pages/Page3_SavingsMedium';

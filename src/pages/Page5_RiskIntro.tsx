@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Page5_RiskIntro = () => {
     return (

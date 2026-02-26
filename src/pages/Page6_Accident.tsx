@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { ACCIDENT_PRICES } from '../data/pricingData';
 import { ShieldAlert, Shield, ShieldCheck } from 'lucide-react';

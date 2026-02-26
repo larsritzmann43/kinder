@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { HEALTH_PRICES, DISABILITY_1000_PRICES, DISABILITY_1500_PRICES, ACCIDENT_PRICES } from '../data/pricingData';
 import { CheckCircle2, Download } from 'lucide-react';

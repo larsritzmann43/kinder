@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { DISABILITY_1000_PRICES, DISABILITY_1500_PRICES } from '../data/pricingData';
 

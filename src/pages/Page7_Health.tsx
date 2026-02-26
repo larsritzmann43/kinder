@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { HEALTH_PRICES } from '../data/pricingData';
 import { Stethoscope, Building2, UserPlus, HeartPulse } from 'lucide-react';
