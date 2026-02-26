@@ -1,0 +1,808 @@
+Total pages: 13
+--- Page 1 ---
+Widget: Textfeld 1 (Type: Text)
+Widget: Textfeld 2 (Type: Text)
+Widget: Textfeld 3 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: Textfeld 4 (Type: Text)
+Format JS: AFDate_FormatEx("dd.mm.yyyy");
+--- Page 2 ---
+--- Page 3 ---
+Widget: Schaltfläche 12 (Type: Button)
+Widget: Schaltfläche 13 (Type: Button)
+Widget: Textfeld 38 (Type: Text)
+Format JS: AFNumber_Format(0, 2, 0, 0, "", true);
+Widget: Textfeld 39 (Type: Text)
+Format JS: AFNumber_Format(0, 2, 0, 0, "", true);
+Widget: Textfeld 40 (Type: Text)
+Format JS: AFNumber_Format(0, 2, 0, 0, "", true);
+Widget: Textfeld 41 (Type: Text)
+Format JS: AFNumber_Format(0, 2, 0, 0, "", true);
+Widget: Textfeld 42 (Type: Text)
+Format JS: AFNumber_Format(0, 2, 0, 0, "", true);
+Widget: Schaltfläche Rechner (Type: Button)
+--- Page 4 ---
+Widget: Schaltfläche 8 (Type: Button)
+Widget: Schaltfläche 7 (Type: Button)
+Widget: Textfeld 27 (Type: Text)
+Format JS: AFNumber_Format(0, 2, 0, 0, "", true);
+--- Page 5 ---
+Widget: Kontrollkästchen 1 (Type: CheckBox)
+Change JS: if (event.value !== "Off") {  var f = this.getField("Kontrollkästchen 2");  if (f) f.value = "Off";}
+Widget: Kontrollkästchen 2 (Type: CheckBox)
+Change JS: if (event.value !== "Off") {  var f = this.getField("Kontrollkästchen 1");  if (f) f.value = "Off";}
+--- Page 6 ---
+Widget: Kontrollkästchen 7 (Type: CheckBox)
+Change JS: if (event.value !== "Off") { var f0=this.getField("Kontrollkästchen 8"); if(f0) f0.value="Off"; var f1=this.getField("Kontrollkästchen 9"); if(f1) f1.value="Off"; }
+Widget: Textfeld 43 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 8 (Type: CheckBox)
+Change JS: if (event.value !== "Off") { var f0=this.getField("Kontrollkästchen 7"); if(f0) f0.value="Off"; var f1=this.getField("Kontrollkästchen 9"); if(f1) f1.value="Off"; }
+Widget: Textfeld 44 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 9 (Type: CheckBox)
+Change JS: if (event.value !== "Off") { var f0=this.getField("Kontrollkästchen 7"); if(f0) f0.value="Off"; var f1=this.getField("Kontrollkästchen 8"); if(f1) f1.value="Off"; }
+Widget: Textfeld 13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 9 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 11-5 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+--- Page 7 ---
+Widget: Kontrollkästchen 10 (Type: CheckBox)
+Widget: Textfeld 14 (Type: Text)
+Calc JS: var ageField = this.getField("Textfeld 3");
+if (!ageField) { event.value = ""; return; }
+var raw = ageField.value.toString().trim();
+var age = -1;
+
+// Fall 1: direkte Altersangabe (Zahl 0-16)
+var n = parseInt(raw);
+if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+    age = n;
+}
+// Fall 2: Geburtsdatum TT.MM.JJJJ → Alter berechnen
+else if (raw.indexOf(".") > -1) {
+    var parts = raw.split(".");
+    if (parts.length >= 3) {
+        var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+        var now = new Date();
+        age = now.getFullYear() - by;
+        if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+        if (age < 0) age = 0;
+        if (age > 16) age = 16;
+    }
+}
+
+if (age >= 0 && age <= 16) {
+    var pf = this.getField("AMBPreis" + age);
+    if (pf) {
+        // Wert ist im deutschen Format (z.B. "13,14") → Komma durch Punkt ersetzen
+        var val = pf.value.toString().replace(",", ".");
+        event.value = parseFloat(val);
+    } else { event.value = ""; }
+} else {
+    event.value = "";
+}
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 11 (Type: CheckBox)
+Widget: Textfeld 15 (Type: Text)
+Calc JS: var ageField = this.getField("Textfeld 3");
+if (!ageField) { event.value = ""; return; }
+var raw = ageField.value.toString().trim();
+var age = -1;
+
+// Fall 1: direkte Altersangabe (Zahl 0-16)
+var n = parseInt(raw);
+if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+    age = n;
+}
+// Fall 2: Geburtsdatum TT.MM.JJJJ → Alter berechnen
+else if (raw.indexOf(".") > -1) {
+    var parts = raw.split(".");
+    if (parts.length >= 3) {
+        var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+        var now = new Date();
+        age = now.getFullYear() - by;
+        if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+        if (age < 0) age = 0;
+        if (age > 16) age = 16;
+    }
+}
+
+if (age >= 0 && age <= 16) {
+    var pf = this.getField("STATPreis" + age);
+    if (pf) {
+        // Wert ist im deutschen Format (z.B. "13,14") → Komma durch Punkt ersetzen
+        var val = pf.value.toString().replace(",", ".");
+        event.value = parseFloat(val);
+    } else { event.value = ""; }
+} else {
+    event.value = "";
+}
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 12 (Type: CheckBox)
+Widget: Textfeld 16 (Type: Text)
+Calc JS: var ageField = this.getField("Textfeld 3");
+if (!ageField) { event.value = ""; return; }
+var raw = ageField.value.toString().trim();
+var age = -1;
+
+// Fall 1: direkte Altersangabe (Zahl 0-16)
+var n = parseInt(raw);
+if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+    age = n;
+}
+// Fall 2: Geburtsdatum TT.MM.JJJJ → Alter berechnen
+else if (raw.indexOf(".") > -1) {
+    var parts = raw.split(".");
+    if (parts.length >= 3) {
+        var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+        var now = new Date();
+        age = now.getFullYear() - by;
+        if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+        if (age < 0) age = 0;
+        if (age > 16) age = 16;
+    }
+}
+
+if (age >= 0 && age <= 16) {
+    var pf = this.getField("ZAHNPreis" + age);
+    if (pf) {
+        // Wert ist im deutschen Format (z.B. "13,14") → Komma durch Punkt ersetzen
+        var val = pf.value.toString().replace(",", ".");
+        event.value = parseFloat(val);
+    } else { event.value = ""; }
+} else {
+    event.value = "";
+}
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 13 (Type: CheckBox)
+Widget: Textfeld 17 (Type: Text)
+Calc JS: var ageField = this.getField("Textfeld 3");
+if (!ageField) { event.value = ""; return; }
+var raw = ageField.value.toString().trim();
+var age = -1;
+
+// Fall 1: direkte Altersangabe (Zahl 0-16)
+var n = parseInt(raw);
+if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+    age = n;
+}
+// Fall 2: Geburtsdatum TT.MM.JJJJ → Alter berechnen
+else if (raw.indexOf(".") > -1) {
+    var parts = raw.split(".");
+    if (parts.length >= 3) {
+        var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+        var now = new Date();
+        age = now.getFullYear() - by;
+        if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+        if (age < 0) age = 0;
+        if (age > 16) age = 16;
+    }
+}
+
+if (age >= 0 && age <= 16) {
+    var pf = this.getField("PFLPreis" + age);
+    if (pf) {
+        // Wert ist im deutschen Format (z.B. "13,14") → Komma durch Punkt ersetzen
+        var val = pf.value.toString().replace(",", ".");
+        event.value = parseFloat(val);
+    } else { event.value = ""; }
+} else {
+    event.value = "";
+}
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+--- Page 8 ---
+Widget: Kontrollkästchen 14 (Type: CheckBox)
+Change JS: if (event.value !== "Off") {
+    var others = ["Kontrollkästchen 15", "Kontrollkästchen 16"];
+    for (var i = 0; i < others.length; i++) {
+        var f = this.getField(others[i]);
+        if (f) f.value = "Off";
+    }
+}
+Widget: Textfeld 18 (Type: Text)
+Calc JS: var ageField = this.getField("Textfeld 3");
+var age = -1;
+if (ageField) {
+    var raw = ageField.value.toString().trim();
+    var n = parseInt(raw);
+    if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+        age = n;
+    } else if (raw.indexOf(".") > -1) {
+        var parts = raw.split(".");
+        if (parts.length >= 3) {
+            var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+            var now = new Date();
+            age = now.getFullYear() - by;
+            if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+            if (age < 0) age = 0;
+            if (age > 16) age = 16;
+        }
+    }
+}if (age >= 0 && age <= 16) {
+    var pf = this.getField("GUPreis" + age);
+    if (pf) {
+        var val = pf.value.toString().replace(",", ".");
+        event.value = parseFloat(val);
+    } else { event.value = ""; }
+} else { event.value = ""; }
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 15 (Type: CheckBox)
+Change JS: var ageField = this.getField("Textfeld 3");
+var age = -1;
+if (ageField) {
+    var raw = ageField.value.toString().trim();
+    var n = parseInt(raw);
+    if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+        age = n;
+    } else if (raw.indexOf(".") > -1) {
+        var parts = raw.split(".");
+        if (parts.length >= 3) {
+            var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+            var now = new Date();
+            age = now.getFullYear() - by;
+            if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+            if (age < 0) age = 0;
+            if (age > 16) age = 16;
+        }
+    }
+}if (event.value !== "Off") {
+    if (age >= 0 && age < 10) {
+        app.alert("Das Leistungspaket 1.500 \u20ac ist erst ab 10 Jahren verf\u00fcgbar.");
+        event.value = "Off";
+        return;
+    }
+    var others = ["Kontrollkästchen 14", "Kontrollkästchen 16"];
+    for (var i = 0; i < others.length; i++) {
+        var f = this.getField(others[i]);
+        if (f) f.value = "Off";
+    }
+}
+Widget: Textfeld 19 (Type: Text)
+Calc JS: var ageField = this.getField("Textfeld 3");
+var age = -1;
+if (ageField) {
+    var raw = ageField.value.toString().trim();
+    var n = parseInt(raw);
+    if (!isNaN(n) && raw.match(/^\d{1,2}$/)) {
+        age = n;
+    } else if (raw.indexOf(".") > -1) {
+        var parts = raw.split(".");
+        if (parts.length >= 3) {
+            var bd = parseInt(parts[0]), bm = parseInt(parts[1]), by = parseInt(parts[2]);
+            var now = new Date();
+            age = now.getFullYear() - by;
+            if (now.getMonth()+1 < bm || (now.getMonth()+1===bm && now.getDate()<bd)) age--;
+            if (age < 0) age = 0;
+            if (age > 16) age = 16;
+        }
+    }
+}var kk15 = this.getField("Kontrollkästchen 15");
+var tf19 = this.getField("Textfeld 19");
+
+if (age >= 0 && age < 10) {
+    // Unter 10 Jahren: ausblenden + deaktivieren
+    if (kk15) { kk15.value = "Off"; kk15.display = display.hidden; }
+    if (tf19)  { tf19.display = display.hidden; }
+    event.value = "";
+
+} else if (age >= 10 && age <= 16) {
+    // Ab 10 Jahren: einblenden + Preis setzen
+    if (kk15) kk15.display = display.visible;
+    if (tf19)  tf19.display = display.visible;
+    var pf = this.getField("GU1500Preis" + age);
+    if (pf) {
+        var val = pf.value.toString().replace(",", ".");
+        event.value = parseFloat(val);
+    } else { event.value = ""; }
+
+} else {
+    event.value = "";
+}
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 16 (Type: CheckBox)
+Change JS: if (event.value !== "Off") {
+    var others = ["Kontrollkästchen 14", "Kontrollkästchen 15"];
+    for (var i = 0; i < others.length; i++) {
+        var f = this.getField(others[i]);
+        if (f) f.value = "Off";
+    }
+}
+Widget: Textfeld 20 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 21 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+--- Page 9 ---
+Widget: Schaltfläche MV (Type: Button)
+Widget: Textfeld 22 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var f = this.getField("Textfeld 42");
+event.value = f ? pgf(f.value) : 0;
+
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 28 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var f = this.getField("Textfeld 27");
+event.value = f ? pgf(f.value) : 0;
+
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 23 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var pairs = [
+    ["Kontrollkästchen 7",  "Textfeld 43"],
+    ["Kontrollkästchen 8",  "Textfeld 44"],
+    ["Kontrollkästchen 9",  "Textfeld 12"]
+];
+var val = 0;
+for (var i = 0; i < pairs.length; i++) {
+    var cb = this.getField(pairs[i][0]);
+    if (cb && cb.value !== "Off") {
+        var tf = this.getField(pairs[i][1]);
+        if (tf) val = pgf(tf.value);
+        break;
+    }
+}
+event.value = val;
+
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 24 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var pairs = [
+    ["Kontrollkästchen 10", "Textfeld 14"],
+    ["Kontrollkästchen 11", "Textfeld 15"],
+    ["Kontrollkästchen 12", "Textfeld 16"],
+    ["Kontrollkästchen 13", "Textfeld 17"]
+];
+var total = 0;
+for (var i = 0; i < pairs.length; i++) {
+    var cb = this.getField(pairs[i][0]);
+    if (cb && cb.value !== "Off") {
+        var tf = this.getField(pairs[i][1]);
+        if (tf) total += pgf(tf.value);
+    }
+}
+event.value = total;
+
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 25 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var pairs = [
+    ["Kontrollkästchen 14", "Textfeld 18"],
+    ["Kontrollkästchen 15", "Textfeld 19"],
+    ["Kontrollkästchen 16", "Textfeld 21"]
+];
+var val = 0;
+for (var i = 0; i < pairs.length; i++) {
+    var cb = this.getField(pairs[i][0]);
+    if (cb && cb.value !== "Off") {
+        var tf = this.getField(pairs[i][1]);
+        if (tf) val = pgf(tf.value);
+        break;
+    }
+}
+event.value = val;
+
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 29 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var fnames = ["Textfeld 22","Textfeld 28","Textfeld 23","Textfeld 24","Textfeld 25"];
+var total = 0;
+for (var i = 0; i < fnames.length; i++) {
+    var f = this.getField(fnames[i]);
+    if (f) total += pgf(f.value);
+}
+event.value = total;
+
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 30 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var f=this.getField('Textfeld 29'); event.value = f ? pgf(f.value)*0.75 : 0;
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 31 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var f=this.getField('Textfeld 29'); event.value = f ? pgf(f.value)*0.5  : 0;
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Textfeld 32 (Type: Text)
+Calc JS: function pgf(s) {
+    s = s.toString().trim();
+    if (s.indexOf(",") !== -1 && s.indexOf(".") !== -1) {
+        s = s.replace(/\./g, "").replace(",", ".");
+    } else if (s.indexOf(",") !== -1) {
+        s = s.replace(",", ".");
+    } else if (s.indexOf(".") !== -1) {
+        var p = s.split(".");
+        if (p[p.length - 1].length === 3) s = s.replace(/\./g, "");
+    }
+    return parseFloat(s) || 0;
+}
+var f=this.getField('Textfeld 29'); event.value = f ? pgf(f.value)*0.25 : 0;
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Schaltfläche 14 (Type: Button)
+Widget: Kontrollkästchen 21 (Type: CheckBox)
+Widget: Kontrollkästchen 22 (Type: CheckBox)
+Widget: Textfeld 54 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 23 (Type: CheckBox)
+Widget: Kontrollkästchen 24 (Type: CheckBox)
+Widget: Textfeld 55 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 25 (Type: CheckBox)
+Widget: Kontrollkästchen 26 (Type: CheckBox)
+Widget: Textfeld 56 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 27 (Type: CheckBox)
+Widget: Kontrollkästchen 28 (Type: CheckBox)
+Widget: Textfeld 57 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 29 (Type: CheckBox)
+Widget: Kontrollkästchen 30 (Type: CheckBox)
+Widget: Textfeld 58 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 31 (Type: CheckBox)
+Widget: Kontrollkästchen 32 (Type: CheckBox)
+Widget: Textfeld 59 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 33 (Type: CheckBox)
+Widget: Kontrollkästchen 34 (Type: CheckBox)
+Widget: Textfeld 60 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Kontrollkästchen 35 (Type: CheckBox)
+Widget: Kontrollkästchen 36 (Type: CheckBox)
+Widget: Textfeld 61 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: Schaltfläche LV (Type: Button)
+Widget: Schaltfläche LV (Type: Button)
+Widget: Schaltfläche LV (Type: Button)
+Widget: Schaltfläche EV (Type: Button)
+--- Page 10 ---
+--- Page 11 ---
+--- Page 12 ---
+Widget: KVAlter0 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter2 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter4 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter6 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter8 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter10 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter12 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter14 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter16 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter1 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter3 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter5 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter7 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter9 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter11 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter13 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: KVAlter15 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: AMBPreis0 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis2 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis4 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis6 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis8 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis14 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis16 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis1 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis3 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis5 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis7 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis9 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: AMBPreis15 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis0 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis2 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis4 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis6 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis8 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis14 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis16 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis1 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis3 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis5 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis7 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis9 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: STATPreis15 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis0 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis2 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis4 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis6 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis8 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis14 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis16 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis1 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis3 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis5 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis7 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis9 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: ZAHNPreis15 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis0 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis2 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis4 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis6 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis8 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis14 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis16 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis1 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis3 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis5 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis7 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis9 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: PFLPreis15 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+--- Page 13 ---
+Widget: GUAlter0 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter2 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter4 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter6 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter8 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter10 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter12 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter14 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUAlter16 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis0 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis2 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis4 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis6 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis8 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis14 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUPreis16 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter1 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis1 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter3 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis3 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter5 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis5 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter7 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis7 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter9 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis9 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter11 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter13 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GUAlter15 (Type: Text)
+Format JS: AFNumber_Format(0, 1, 0, 0, "", false);
+Widget: GUPreis15 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis10 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis12 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis14 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis16 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis11 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis13 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
+Widget: GU1500Preis15 (Type: Text)
+Format JS: AFNumber_Format(2, 1, 0, 0, "", false);
